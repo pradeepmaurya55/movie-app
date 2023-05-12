@@ -1,0 +1,7 @@
+{
+  "getLongestMovies": "SELECT tconst,primaryTitle,runtimeMinutes,genres FROM movies ORDER BY runtimeMinutes DESC LIMIT 10",
+  "createNewMovie": "insert into movies (tconst, titleType,primaryTitle,runTimeMinutes,genres) values(?,?,?,?,?)",
+  "getTopRatedMovies": "SELECT m.tconst,m.primaryTitle,m.genres,r.averageRating  FROM movies m, reviews r WHERE m.tconst=r.tconst AND r.averageRating > 6.0",
+  "getMoviesGenre": "WITH genre AS ( SELECT m.genres as GENRE , m.primaryTitle, sum(r.numVotes) AS numVotes FROM movies m, reviews r Where m.tconst=r.tconst GROUP BY m.genres,m.primaryTitle WITH ROLLUP ) SELECT coalesce(GENRE,\"Total\") as GENRE,coalesce(primaryTitle,\"Total\") as primaryTitle,numVotes FROM genre",
+  "updateRuntimeMinutes": "UPDATE movies SET runtimeMinutes = CASE WHEN genres = 'Documentary' THEN runtimeMinutes + 15 WHEN genres = 'Animation' THEN runtimeMinutes + 30 ELSE runtimeMinutes + 45 END"
+}
