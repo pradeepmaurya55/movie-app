@@ -11,9 +11,9 @@ const {
 const router = Router();
 
 router.route("/longest-duration-movies").get(getLongestMovies);
-router.route("/new-movie").get(createNewMovie);
+router.route("/new-movie").post(createNewMovie);
 router.route("/top-rated-movies").get(getTopRatedMovies);
 router.route("/genre-movies-with-subtotals").get(getMoviesGenre);
-router.route("/update-runtime-minutes").get(updateRuntimeMinutes);
+router.route("/update-runtime-minutes").post(updateRuntimeMinutes);
 
 module.exports = router;

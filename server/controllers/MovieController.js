@@ -3,7 +3,7 @@ const queries = require("../database/queries.json");
 
 const getLongestMovies = async (req, res) => {
   try {
-    const [rowws, fields] = await pool.query(queries.getLongestMovies);
+    const [rows, fields] = await pool.query(queries.getLongestMovies);
     res.status(200).send(rows);
   } catch (err) {
     res.status(400).send("error : " + err.message);
@@ -14,6 +14,7 @@ const createNewMovie = async (req, res) => {
   try {
     const { tconst, titleType, primaryTitle, runTimeMinutes, genres } =
       req?.body;
+    if (!tconst) throw { message: "tconst required" };
     const [rows, fields] = await pool.query(queries.createNewMovie, [
       tconst,
       titleType,
@@ -23,7 +24,7 @@ const createNewMovie = async (req, res) => {
     ]);
     res.status(200).send("success");
   } catch (err) {
-    res.status(400).send("failed");
+    res.status(400).send("failed :" + err.message);
   }
 };
 
